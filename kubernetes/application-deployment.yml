@@ -72,67 +72,67 @@ spec:
 #        name: cpu
 #        targetAverageUtilization: 85
 #---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: payment-deployment
-#  namespace: default
-#  labels:
-#    app: payment-deployment
-#spec:
-#  selector:
-#    matchLabels:
-#      app: payment-deployment
-#  template:
-#    metadata:
-#      labels:
-#        app: payment-deployment
-#    spec:
-#      containers:
-#        - name: payment-service
-#          image: asia-southeast2-docker.pkg.dev/com-ecommerce-app/com-ecommerce-app-repository/payment.service:1.0-SNAPSHOT
-#          env:
-#            - name: SPRING_DATASOURCE_URL
-#              value: "jdbc:postgresql://postgres-service:5433/postgres?currentSchema=payment&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
-#            - name: SPRING_DATASOURCE_INITIALIZATION-MODE
-#              value: "never"
-#            - name: KAFKA-CONFIG_BOOTSTRAP-SERVERS
-#              value: "gke-confluent-kafka-cp-kafka-headless:9092"
-#            - name: KAFKA-CONFIG_SCHEMA-REGISTRY-URL
-#              value: "http://gke-confluent-kafka-cp-schema-registry:8081"
-#          resources:
-#            limits:
-#              cpu: "500m"
-#              memory: "1024Mi"
-#            requests:
-#              cpu: "200m"
-#              memory: "256Mi"
-#---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: payment-service
-#  namespace: default
-#  labels:
-#    app: payment-service
-#spec:
-#  selector:
-#    app: payment-deployment
-#  ports:
-#    - name: payment-service-port
-#      protocol: TCP
-#      port: 8182
-#  type: LoadBalancer
-#  loadBalancerIP: ""
-#---
-#apiVersion: autoscaling/v2beta1
-#kind: HorizontalPodAutoscaler
-#metadata:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: product-deployment
+ namespace: default
+ labels:
+   app: product-deployment
+spec:
+ selector:
+   matchLabels:
+     app: product-deployment
+ template:
+   metadata:
+     labels:
+       app: product-deployment
+   spec:
+     containers:
+       - name: product-service
+         image: asia-southeast2-docker.pkg.dev/civil-hash-446108-e1/com-multiwarehouse-app-repository/product.service:1.0:-SNAPSHOT
+         env:
+           - name: SPRING_DATASOURCE_URL
+             value: "jdbc:postgresql://postgres-service:5432/product_service?currentSchema=public&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
+           - name: SPRING_DATASOURCE_INITIALIZATION-MODE
+             value: "never"
+           - name: KAFKA-CONFIG_BOOTSTRAP-SERVERS
+             value: "gke-confluent-kafka-cp-kafka-headless:9092"
+           - name: KAFKA-CONFIG_SCHEMA-REGISTRY-URL
+             value: "http://gke-confluent-kafka-cp-schema-registry:8081"
+         resources:
+           limits:
+             cpu: "500m"
+             memory: "1024Mi"
+           requests:
+             cpu: "200m"
+             memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: product-service
+ namespace: default
+ labels:
+   app: product-service
+spec:
+ selector:
+   app: product-deployment
+ ports:
+   - name: product-service-port
+     protocol: TCP
+     port: 8083
+ type: LoadBalancer
+ loadBalancerIP: ""
+---
+# apiVersion: autoscaling/v2beta1
+# kind: HorizontalPodAutoscaler
+# metadata:
 #  name: payment-deployment-hpa
 #  namespace: default
 #  labels:
 #    app: payment-deployment
-#spec:
+# spec:
 #  scaleTargetRef:
 #    kind: Deployment
 #    name: payment-deployment
@@ -144,67 +144,67 @@ spec:
 #      resource:
 #        name: cpu
 #        targetAverageUtilization: 85
-#---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: customer-deployment
-#  labels:
-#    app: customer-deployment
-#spec:
-#  selector:
-#    matchLabels:
-#      app: customer-deployment
-#  template:
-#    metadata:
-#      labels:
-#        app: customer-deployment
-#    spec:
-#      containers:
-#        - name: customer-service
-#          image: asia-southeast2-docker.pkg.dev/com-ecommerce-app/com-ecommerce-app-repository/customer.service:1.0-SNAPSHOT
-#          env:
-#            - name: SPRING_DATASOURCE_URL
-#              value: "jdbc:postgresql://postgres-service:5433/postgres?currentSchema=customer&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
-#            - name: SPRING_DATASOURCE_INITIALIZATION-MODE
-#              value: "never"
-#            - name: KAFKA-CONFIG_BOOTSTRAP-SERVERS
-#              value: "gke-confluent-kafka-cp-kafka-headless:9092"
-#            - name: KAFKA-CONFIG_SCHEMA-REGISTRY-URL
-#              value: "http://gke-confluent-kafka-cp-schema-registry:8081"
-#          resources:
-#            limits:
-#              cpu: "500m"
-#              memory: "1024Mi"
-#            requests:
-#              cpu: "200m"
-#              memory: "256Mi"
-#---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: customer-service
-#  namespace: default
-#  labels:
-#    app: customer-service
-#spec:
-#  selector:
-#    app: customer-deployment
-#  ports:
-#    - name: customer-service-port
-#      protocol: TCP
-#      port: 8184
-#  type: LoadBalancer
-#  loadBalancerIP: ""
-#---
-#apiVersion: autoscaling/v2beta1
-#kind: HorizontalPodAutoscaler
-#metadata:
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: user-deployment
+ labels:
+   app: user-deployment
+spec:
+ selector:
+   matchLabels:
+     app: user-deployment
+ template:
+   metadata:
+     labels:
+       app: user-deployment
+   spec:
+     containers:
+       - name: customer-service
+         image: asia-southeast2-docker.pkg.dev/civil-hash-446108-e1/com-multiwarehouse-app-repository/user.service:1.0:-SNAPSHOT
+         env:
+           - name: SPRING_DATASOURCE_URL
+             value: "jdbc:postgresql://postgres-service:5432/user_service?currentSchema=public&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
+           - name: SPRING_DATASOURCE_INITIALIZATION-MODE
+             value: "never"
+           - name: KAFKA-CONFIG_BOOTSTRAP-SERVERS
+             value: "gke-confluent-kafka-cp-kafka-headless:9092"
+           - name: KAFKA-CONFIG_SCHEMA-REGISTRY-URL
+             value: "http://gke-confluent-kafka-cp-schema-registry:8081"
+         resources:
+           limits:
+             cpu: "500m"
+             memory: "1024Mi"
+           requests:
+             cpu: "200m"
+             memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: customer-service
+ namespace: default
+ labels:
+   app: customer-service
+spec:
+ selector:
+   app: customer-deployment
+ ports:
+   - name: customer-service-port
+     protocol: TCP
+     port: 8082
+ type: LoadBalancer
+ loadBalancerIP: ""
+---
+# apiVersion: autoscaling/v2beta1
+# kind: HorizontalPodAutoscaler
+# metadata:
 #  name: customer-deployment-hpa
 #  namespace: default
 #  labels:
 #    app: customer-deployment
-#spec:
+# spec:
 #  scaleTargetRef:
 #    kind: Deployment
 #    name: customer-deployment
