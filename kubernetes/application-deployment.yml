@@ -161,7 +161,7 @@ spec:
        app: user-deployment
    spec:
      containers:
-       - name: customer-service
+       - name: user-service
          image: asia-southeast2-docker.pkg.dev/civil-hash-446108-e1/com-multiwarehouse-app-repository/user.service:1.0-SNAPSHOT
          env:
            - name: SPRING_DATASOURCE_URL
@@ -183,15 +183,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
- name: customer-service
+ name: user-service
  namespace: default
  labels:
-   app: customer-service
+   app: user-service
 spec:
  selector:
-   app: customer-deployment
+   app: user-deployment
  ports:
-   - name: customer-service-port
+   - name: user-service-port
      protocol: TCP
      port: 8082
  type: LoadBalancer
