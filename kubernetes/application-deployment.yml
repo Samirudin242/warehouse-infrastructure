@@ -235,7 +235,7 @@ spec:
     spec:
       containers:
         - name: raja-ongkir
-          image: asia-southeast2-docker.pkg.dev/civil-hash-446108-e1/com-multiwarehouse-app-repository/raja-ongkir:1.0
+          image: asia-southeast2-docker.pkg.dev/civil-hash-446108-e1/com-multiwarehouse-app-repository/raja-ongkir:latest
           env:
             - name: API_KEY
               value: "43cdf7f9fc3b84498012095f235ce33e"
@@ -257,4 +257,4 @@ spec:
   ports:
     - name: raja-ongkir-service-port
       protocol: TCP
-      port: 8083
+      port: 3003
