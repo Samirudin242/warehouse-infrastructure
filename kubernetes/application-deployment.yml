@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: raja-ongkir-app
-          image: asia-southeast2-docker.pkg.dev/civil-hash-446108-e1/com-multiwarehouse-app-repository/raja-ongkir-app:1.0
+          image: asia-southeast2-docker.pkg.dev/civil-hash-446108-e1/com-multiwarehouse-app-repository/raja.ongkir.app:1.0
           ports:
             - containerPort: 3003
           resources:
