@@ -34,7 +34,7 @@ metadata:
     app: raja-ongkir-service
 spec:
   selector:
-    app: raja-ongkir-service
+    app: raja-ongkir-deployment
   ports:
     - name: raja-ongkir-service-port
       protocol: TCP
