@@ -38,8 +38,7 @@ metadata:
   labels:
     app: raja-ongkir-service
   annotations:
-    cloud.google.com/load-balancer-type: "Internal"
-    networking.gke.io/load-balancer-type: "Internal"
+    cloud.google.com/load-balancer-type: "External"
 spec:
   selector:
     app: raja-ongkir-app-deployment
