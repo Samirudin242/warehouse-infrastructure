@@ -19,6 +19,9 @@ spec:
           image: asia-southeast2-docker.pkg.dev/civil-hash-446108-e1/com-multiwarehouse-app-repository/raja.ongkir.app:1.0
           ports:
             - containerPort: 3003
+          env:
+            - name: HOST
+              value: "0.0.0.0"
           resources:
             limits:
               cpu: "500m"
@@ -26,7 +29,6 @@ spec:
             requests:
               cpu: "200m"
               memory: "256Mi"
-
 ---
 apiVersion: v1
 kind: Service
