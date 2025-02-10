@@ -1,32 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: raja-ongkir
+  name: raja-ongkir-app
+  namespace: default
   labels:
-    app: raja-ongkir
+    app: raja-ongkir-app
 spec:
-  replicas: 2
   selector:
     matchLabels:
-      app: raja-ongkir
+      app: raja-ongkir-app
   template:
     metadata:
       labels:
-        app: raja-ongkir
+        app: raja-ongkir-app
     spec:
       containers:
         - name: raja-ongkir
           image: asia-southeast2-docker.pkg.dev/civil-hash-446108-e1/com-multiwarehouse-app-repository/raja-ongkir-app:1.0
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "1024Mi"
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: raja-ongkir-service
+  namespace: default
+  labels:
+    app: raja-ongkir-service
 spec:
-  type: LoadBalancer
   selector:
-    app: raja-ongkir
+    app: raja-ongkir-service
   ports:
     - name: raja-ongkir-service-port
       protocol: TCP
       port: 3003
+  type: LoadBalancer
+  loadBalancerIP: ""
