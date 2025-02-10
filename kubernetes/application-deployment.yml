@@ -26,6 +26,7 @@ spec:
             requests:
               cpu: "200m"
               memory: "256Mi"
+
 ---
 apiVersion: v1
 kind: Service
@@ -34,6 +35,9 @@ metadata:
   namespace: default
   labels:
     app: raja-ongkir-service
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
+    networking.gke.io/load-balancer-type: "Internal"
 spec:
   selector:
     app: raja-ongkir-app-deployment
